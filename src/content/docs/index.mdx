@@ -1,0 +1,72 @@
+---
+title: attic
+description: Track everything. Lose nothing.
+template: splash # Remove or comment out this line to display the site sidebar on this page.
+hero:
+  tagline: Track everything. Lose nothing
+  actions:
+    - text: Get started
+      link: /installation/
+      icon: right-arrow
+    - text: GitHub
+      link: https://github.com/lmmendes/attic
+      icon: external
+      variant: minimal
+---
+
+import { CardGrid } from '@astrojs/starlight/components';
+import Card from '../../components/Card.astro';
+
+<a href="/linkding-screenshot.png" className="hero-image light">
+    <img src="/attic-screenshot-white.png"/>
+</a>
+<a href="/linkding-screenshot-dark.png" className="hero-image dark">
+    <img src="/attic-screenshot-dark.png"/>
+</a>
+
+## Features
+
+<CardGrid>
+	<Card title="Asset Management" icon="asset">
+	    Create, organize, and track all your physical and digital assets in one centralized platform with full lifecycle management.
+	</Card>
+	<Card title="Smart Import" icon="import">
+	    Import assets instantly from Google Books, TMDB, and BoardGameGeek with automatic metadata, cover images, and custom attributes.
+	</Card>
+	<Card title="Hierarchical Organization" icon="plus">
+	    Build nested categories and locations to mirror your real-world setup. Organize by room, shelf, or any structure that fits your needs.
+	</Card>
+	<Card title="Warranty Tracking" icon="warranty">
+	    Never miss a warranty expiration again. Track providers, dates, and get alerts when warranties are about to expire.
+	</Card>
+	<Card title="Custom Attributes" icon="attributes">
+	    Define unlimited custom fields per category. Track any data you need dates, numbers, text, booleans, or dropdown selections.
+	</Card>
+	<Card title="File Attachments" icon="attachments">
+	    Attach invoices, manuals, photos, and documents to any asset. Keep all related files in one place with secure download links.
+	</Card>
+	<Card title="Full-Text Search" icon="search">
+	    Find anything instantly. Search across names, descriptions, tags, and custom attributes with powerful full-text search.
+	</Card>
+	<Card title="Collections" icon="collections">
+	    Group related assets together—book series, game expansions, or any items that belong as a set.
+	</Card>
+	<Card title="Self-Hosted" icon="selfhosted">
+	    Own your data completely. Deploy on your infrastructure with Docker, no cloud dependency or subscription required.
+	</Card>
+	<Card title="Single Sign-On (SSO)" icon="sso">
+	    Integrate with your existing identity provider using OIDC/OpenID Connect. Works seamlessly with PocketID, Keycloak and other providers.
+	</Card>
+	<Card title="REST API" icon="api">
+        Full-featured API with interactive Swagger documentation. Build custom integrations or automate your asset management.
+	</Card>
+	<Card title="Condition Tracking" icon="tracking">
+	    Monitor item quality. Track whether assets are new, used, damaged, or any custom condition you define.
+	</Card>
+	<Card title="Plugin System" icon="plugin">
+	    Add new import sources without writing code. Plugins automatically create categories, attributes, and fetch cover images.
+	</Card>
+	<Card title="Dark Mode" icon="darkmode">
+	    Beautiful, responsive interface with built-in dark theme support. Works great on desktop and mobile devices.
+	</Card>
+</CardGrid>

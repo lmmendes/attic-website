@@ -1,0 +1,212 @@
+---
+title: "Installation"
+description: "How to install and self-host attic using Docker"
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+attic is designed to be self-hosted using container solutions like [Docker](https://docs.docker.com/get-started/). The Docker image is built on Alpine Linux and supports both AMD64 and ARM64 platforms, so it runs on everything from a Raspberry Pi to a cloud server.
+
+attic requires **PostgreSQL 16+** as its database. File attachments can be stored locally or on any S3-compatible storage service.
+
+## Using Docker Compose (Recommended)
+
+Docker Compose is the easiest way to get attic running with all its dependencies.
+
+**1. Create a project directory and download the configuration files:**
+
+```shell
+mkdir attic && cd attic
+```
+
+**2. Create a `docker-compose.yml` file:**
+
+```yaml
+version: "3.8"
+
+services:
+  attic:
+    image: ghcr.io/lmmendes/attic:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - ATTIC_PORT=8080
+      - ATTIC_DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?sslmode=disable
+      - ATTIC_LOCAL_STORAGE_PATH=/data/uploads
+      - ATTIC_SESSION_SECRET=${ATTIC_SESSION_SECRET}
+      - ATTIC_BASE_URL=${ATTIC_BASE_URL:-http://localhost:8080}
+      - ATTIC_ADMIN_EMAIL=${ATTIC_ADMIN_EMAIL:-admin}
+      - ATTIC_ADMIN_PASSWORD=${ATTIC_ADMIN_PASSWORD:-admin}
+    volumes:
+      - attic_uploads:/data/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-attic}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:-attic}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-attic}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  attic_uploads:
+```
+
+**3. Create a `.env` file with your configuration:**
+
+```shell
+# Database
+POSTGRES_USER=attic
+POSTGRES_PASSWORD=change-me-to-a-secure-password
+POSTGRES_DB=attic
+
+# Session secret (generate with: openssl rand -base64 48)
+ATTIC_SESSION_SECRET=change-me-to-a-random-string-at-least-32-chars
+
+# Base URL (set to your domain in production)
+ATTIC_BASE_URL=http://localhost:8080
+
+# Initial admin credentials
+ATTIC_ADMIN_EMAIL=admin@example.com
+ATTIC_ADMIN_PASSWORD=change-me
+```
+
+**4. Start the services:**
+
+```shell
+docker compose up -d
+```
+
+If everything completed successfully, attic should now be running at [http://localhost:8080](http://localhost:8080). Log in with the admin credentials you configured in the `.env` file.
+
+## Using Docker
+
+You can also run attic with a standalone Docker command. You will need a PostgreSQL database accessible from the container.
+
+
+<Tabs>
+    <TabItem label="Docker Hub">
+    ```shell
+    # Using Docker Hub
+    docker run --name attic \
+        -p 8080:8080 \
+        -e ATTIC_DATABASE_URL=postgres://attic:password@your-db-host:5432/attic?sslmode=disable \
+        -e ATTIC_SESSION_SECRET=your-session-secret-here \
+        -e ATTIC_ADMIN_EMAIL=admin@example.com \
+        -e ATTIC_ADMIN_PASSWORD=change-me \
+        -v attic_uploads:/data/uploads \
+        -d lmmendes/attic:latest
+    ```
+    </TabItem>
+    <TabItem label="GitHub Container Registry">
+    ```shell
+    # Using GitHub Container Registry
+    docker run --name attic \
+        -p 8080:8080 \
+        -e ATTIC_DATABASE_URL=postgres://attic:password@your-db-host:5432/attic?sslmode=disable \
+        -e ATTIC_SESSION_SECRET=your-session-secret-here \
+        -e ATTIC_ADMIN_EMAIL=admin@example.com \
+        -e ATTIC_ADMIN_PASSWORD=change-me \
+        -v attic_uploads:/data/uploads \
+        -d ghcr.io/lmmendes/attic:latest
+    ```
+    </TabItem>
+</Tabs>
+
+## Docker Image Tags
+
+| Tag | Description |
+|-----|-------------|
+| `latest` | Latest stable release |
+| `x.y.z` | Specific version (e.g., `1.2.0`) |
+
+## Initial Setup
+
+On first startup, attic automatically runs database migrations and creates an initial admin user using the `ATTIC_ADMIN_EMAIL` and `ATTIC_ADMIN_PASSWORD` environment variables. The defaults are `admin` / `admin` if not specified.
+
+After starting attic for the first time:
+
+1. Open the application in your browser (default: [http://localhost:8080](http://localhost:8080))
+2. Log in with your admin credentials
+3. **Change the default password immediately** if you used the defaults
+
+You can also reset a user's password via the CLI:
+
+```shell
+# Docker Compose
+docker compose exec attic /app/attic --reset-password --email admin@example.com --new-password your-new-password
+
+# Docker
+docker exec -it attic /app/attic --reset-password --email admin@example.com --new-password your-new-password
+```
+
+## Upgrading
+
+To upgrade to a new version of attic:
+
+**Docker Compose:**
+
+```shell
+docker compose pull
+docker compose up -d
+```
+
+**Docker:**
+
+```shell
+docker pull ghcr.io/lmmendes/attic:latest
+docker stop attic
+docker rm attic
+# Run the same docker run command you used for the initial installation
+```
+
+Database migrations run automatically on startup, so no manual migration step is needed.
+
+## File Permissions (PUID/PGID)
+
+When using local file storage in Docker, you can set `ATTIC_PUID` and `ATTIC_PGID` to match your host user's UID/GID. This ensures uploaded files have the correct ownership on the host filesystem.
+
+```shell
+# Find your user/group IDs
+id -u  # PUID
+id -g  # PGID
+```
+
+Add these to your Docker environment:
+
+```yaml
+environment:
+  - ATTIC_PUID=1000
+  - ATTIC_PGID=1000
+```
+
+## Health Checks
+
+The Docker image includes a built-in health check that polls the `/health` endpoint every 30 seconds. You can verify attic is running correctly:
+
+```shell
+# Check container health status
+docker inspect --format='{{.State.Health.Status}}' attic
+
+# Or call the endpoint directly
+curl http://localhost:8080/health
+```
+
+## Next Steps
+
+- [Configuration](/options) - Configure storage, authentication, and other options
+- [Authentication](/guides/authentication) - Set up OIDC/SSO or local authentication
+- [Storage](/guides/storage) - Configure S3 or local file storage
+- [Reverse Proxy](/guides/reverse-proxy) - Set up Nginx, Caddy, or Traefik

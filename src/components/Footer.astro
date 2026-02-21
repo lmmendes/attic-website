@@ -1,0 +1,84 @@
+---
+import type { Props } from "@astrojs/starlight/props";
+---
+
+<footer class="site-footer">
+    <div class="footer-content">
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="/installation">Installation</a>
+            <a href="/options">Configuration</a>
+            <a
+                href="https://github.com/lmmendes/attic"
+                target="_blank"
+                rel="noopener">GitHub</a
+            >
+        </div>
+        <div class="footer-meta">
+            <p>Built in Europe 🇪🇺</p>
+        </div>
+    </div>
+</footer>
+
+<style>
+    .site-footer {
+        border-top: 1px solid var(--sl-color-gray-5);
+        padding: 2rem 1rem;
+        margin-top: 3rem;
+    }
+
+    .footer-content {
+        max-width: 72rem;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+
+    .footer-links a {
+        color: var(--sl-color-text);
+        text-decoration: none;
+        font-size: var(--sl-text-sm);
+        transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+        color: var(--sl-color-text-accent);
+    }
+
+    .footer-meta {
+        color: var(--sl-color-gray-3);
+        font-size: var(--sl-text-xs);
+    }
+
+    .footer-meta a {
+        color: var(--sl-color-gray-3);
+        text-decoration: underline;
+        text-underline-offset: 0.2em;
+    }
+
+    .footer-meta a:hover {
+        color: var(--sl-color-text-accent);
+    }
+
+    @media (min-width: 50rem) {
+        .site-footer {
+            padding: 2.5rem 2rem;
+        }
+
+        .footer-content {
+            flex-direction: row;
+            justify-content: space-between;
+            text-align: left;
+        }
+    }
+</style>
