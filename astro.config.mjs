@@ -7,6 +7,22 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "attic",
+      head: [
+        {
+          tag: "script",
+          attrs: {
+            src: "https://www.googletagmanager.com/gtag/js?id=G-GHQMK5GWQP",
+            async: true,
+          },
+        },
+        {
+          tag: "script",
+          content: `window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-GHQMK5GWQP');`,
+        },
+      ],
       components: {
         Footer: "./src/components/Footer.astro",
       },
