@@ -1,0 +1,36 @@
+# attic
+
+> Self-hosted inventory management. Track everything. Lose nothing.
+
+attic is an open-source, self-hosted inventory management application. It lets individuals and teams catalog physical and digital assets — books, games, electronics, tools, and more — with full lifecycle tracking, warranty management, custom attributes, and file attachments. It runs as a single Docker container backed by PostgreSQL and exposes a full REST API.
+
+## Key Features
+
+- **Asset Management**: Create, organize, and track physical and digital assets with full lifecycle management.
+- **Smart Import**: Import from Google Books, TMDB (movies/TV), and BoardGameGeek with automatic metadata and cover images.
+- **Hierarchical Organization**: Nested categories and locations to mirror real-world setups (room, shelf, box, etc.).
+- **Warranty Tracking**: Track warranty providers, dates, and expiration alerts.
+- **Custom Attributes**: Unlimited custom fields per category (dates, numbers, text, booleans, dropdowns).
+- **File Attachments**: Attach invoices, manuals, photos, and documents to any asset.
+- **Full-Text Search**: Search across names, descriptions, tags, and custom attributes.
+- **Collections**: Group related assets together (book series, game expansions, etc.).
+- **Self-Hosted**: Deploy with Docker; no cloud dependency or subscription required.
+- **SSO / OIDC**: Integrate with identity providers like PocketID and Keycloak.
+- **REST API**: Full-featured API with interactive Swagger documentation.
+- **Plugin System**: Add import sources without writing code.
+- **Dark Mode**: Responsive UI with built-in dark theme.
+
+## Docs
+
+- [Installation](/installation/): How to deploy attic with Docker or Docker Compose.
+- [Configuration](/options/): Environment variables and configuration options.
+- [Authentication](/guides/authentication/): Local auth and OIDC/SSO setup.
+- [Storage](/guides/storage/): Local filesystem and S3-compatible storage.
+- [Reverse Proxy](/guides/reverse-proxy/): Nginx, Caddy, and Traefik configuration.
+- [Import Plugins](/guides/import-plugins/): Adding and using import plugins.
+- [API Reference](/reference/api/): REST API documentation.
+
+## Links
+
+- Source code: https://github.com/lmmendes/attic
+- Docker image: ghcr.io/lmmendes/attic:latest

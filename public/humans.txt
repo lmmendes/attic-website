@@ -1,0 +1,10 @@
+/* TEAM */
+Developer: Luis Mendes
+GitHub: https://github.com/lmmendes
+
+/* SITE */
+Name: attic
+Description: Self-hosted inventory management. Track everything. Lose nothing.
+Language: English
+Technology: Go, PostgreSQL, Docker
+GitHub: https://github.com/lmmendes/attic
