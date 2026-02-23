@@ -163,7 +163,7 @@ Values: `true`, `false` | Default: `false`
 
 Enables OpenID Connect (OIDC) authentication for single sign-on. When enabled, users authenticate through your OIDC provider (e.g., Keycloak, Authentik, PocketID). See the [authentication guide](/guides/authentication) for setup instructions.
 
-### `ATTIC_OIDC_ISSUER`
+### `ATTIC_OIDC_ISSUER_URL`
 
 Values: `String` | Default: `http://localhost:8180/realms/attic`
 
@@ -171,13 +171,13 @@ The OIDC issuer URL. This is the base URL of your OIDC provider's realm or tenan
 
 ```
 # Keycloak
-ATTIC_OIDC_ISSUER=https://auth.yourdomain.com/realms/attic
+ATTIC_OIDC_ISSUER_URL=https://auth.yourdomain.com/realms/attic
 
 # Authentik
-ATTIC_OIDC_ISSUER=https://auth.yourdomain.com/application/o/attic/
+ATTIC_OIDC_ISSUER_URL=https://auth.yourdomain.com/application/o/attic/
 
 # PocketID
-ATTIC_OIDC_ISSUER=https://pocketid.yourdomain.com
+ATTIC_OIDC_ISSUER_URL=https://pocketid.yourdomain.com
 ```
 
 ### `ATTIC_OIDC_CLIENT_ID`

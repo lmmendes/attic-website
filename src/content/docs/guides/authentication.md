@@ -46,7 +46,7 @@ Add these environment variables to enable OIDC:
 
 ```shell
 ATTIC_OIDC_ENABLED=true
-ATTIC_OIDC_ISSUER=https://auth.yourdomain.com/realms/attic
+ATTIC_OIDC_ISSUER_URL=https://auth.yourdomain.com/realms/attic
 ATTIC_OIDC_CLIENT_ID=attic-web
 ATTIC_OIDC_CLIENT_SECRET=your-client-secret  # Required for confidential clients
 ATTIC_BASE_URL=https://attic.yourdomain.com
@@ -68,7 +68,7 @@ The Docker Compose file includes a bundled Keycloak instance. To use it:
 
 ```shell
 ATTIC_OIDC_ENABLED=true
-ATTIC_OIDC_ISSUER=https://auth.yourdomain.com/realms/attic
+ATTIC_OIDC_ISSUER_URL=https://auth.yourdomain.com/realms/attic
 ATTIC_OIDC_CLIENT_ID=attic-web
 ATTIC_OIDC_CLIENT_SECRET=your-client-secret
 
@@ -121,7 +121,7 @@ keycloak:
 
 ```shell
 ATTIC_OIDC_ENABLED=true
-ATTIC_OIDC_ISSUER=https://pocketid.yourdomain.com
+ATTIC_OIDC_ISSUER_URL=https://pocketid.yourdomain.com
 ATTIC_OIDC_CLIENT_ID=your-client-id
 ATTIC_OIDC_CLIENT_SECRET=your-client-secret
 ```
@@ -132,7 +132,7 @@ In PocketID, create a new client with the redirect URI set to `https://attic.you
 
 ```shell
 ATTIC_OIDC_ENABLED=true
-ATTIC_OIDC_ISSUER=https://auth.yourdomain.com/application/o/attic/
+ATTIC_OIDC_ISSUER_URL=https://auth.yourdomain.com/application/o/attic/
 ATTIC_OIDC_CLIENT_ID=your-client-id
 ATTIC_OIDC_CLIENT_SECRET=your-client-secret
 ```
