@@ -54,6 +54,14 @@ ATTIC_BASE_URL=https://attic.yourdomain.com
 
 If your OIDC provider uses a public client (no secret required), you can omit `ATTIC_OIDC_CLIENT_SECRET`.
 
+To skip the intermediate SSO login button and send unauthenticated users directly to your identity provider, enable automatic OIDC forwarding:
+
+```shell
+ATTIC_OIDC_AUTO_REDIRECT=true
+```
+
+This setting is opt-in and only applies when OIDC is enabled. After an explicit logout, attic remains on the login page instead of automatically redirecting back to the identity provider.
+
 The callback URL to configure in your OIDC provider is:
 
 ```

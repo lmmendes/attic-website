@@ -163,6 +163,12 @@ Values: `true`, `false` | Default: `false`
 
 Enables OpenID Connect (OIDC) authentication for single sign-on. When enabled, users authenticate through your OIDC provider (e.g., Keycloak, Authentik, PocketID). See the [authentication guide](/guides/authentication) for setup instructions.
 
+### `ATTIC_OIDC_AUTO_REDIRECT`
+
+Values: `true`, `false` | Default: `false`
+
+Automatically sends unauthenticated users to the configured OIDC provider instead of showing the intermediate SSO login button. This option only takes effect when `ATTIC_OIDC_ENABLED=true`. After an explicit logout, attic keeps users on the login page so they are not immediately signed in again.
+
 ### `ATTIC_OIDC_ISSUER_URL`
 
 Values: `String` | Default: `http://localhost:8180/realms/attic`
