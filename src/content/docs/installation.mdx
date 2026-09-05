@@ -27,6 +27,8 @@ version: "3.8"
 services:
   attic:
     image: ghcr.io/lmmendes/attic:latest
+    # Prepare local-storage ownership, then drop privileges before starting attic.
+    user: "0:0"
     ports:
       - "8080:8080"
     environment:
@@ -132,6 +134,35 @@ You can also run attic with a standalone Docker command. You will need a Postgre
 | `latest` | Latest stable release |
 | `x.y.z` | Specific version (e.g., `1.2.0`) |
 
+## Kubernetes
+
+The image defaults to numeric UID and GID `1000:1000`. It also supports other non-root identities assigned through `runAsUser` and `runAsGroup`. When started as non-root, the entrypoint keeps that identity and does not change storage ownership or switch users.
+
+This pod-spec fragment shows the security settings for Kubernetes' Restricted Pod Security Standard:
+
+```yaml
+spec:
+  securityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+  containers:
+    - name: attic
+      image: ghcr.io/lmmendes/attic:latest
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: ["ALL"]
+        seccompProfile:
+          type: RuntimeDefault
+```
+
+Add your database configuration and, for local storage, a writable volume mounted at `/data/uploads`. Adjust the IDs to your cluster's policy. Leave `ATTIC_PUID` and `ATTIC_PGID` unset; if explicitly configured for local storage, both must match the container's runtime UID/GID or startup fails.
+
+For supported volume types and CSI drivers, `fsGroup` provides group access to mounted storage. Otherwise, provision volume permissions separately. The image's directory ownership does not apply to a volume mounted over that directory. An uploads volume and `fsGroup` are unnecessary when using S3 storage. See [Kubernetes volume permissions](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods).
+
 ## Initial Setup
 
 On first startup, attic automatically runs database migrations and creates an initial admin user using the `ATTIC_ADMIN_EMAIL` and `ATTIC_ADMIN_PASSWORD` environment variables. The defaults are `admin` / `admin` if not specified.
@@ -174,9 +205,15 @@ docker rm attic
 
 Database migrations run automatically on startup, so no manual migration step is needed.
 
+### Upgrading to the non-root image
+
+The image now starts as `1000:1000` by default. Before upgrading, ensure existing local-storage volumes and bind mounts are writable by the selected UID/GID. Non-root startup does not repair ownership, and existing files retain their permissions.
+
+If you previously relied on the entrypoint to prepare ownership, use the root-start Docker setup below or provision permissions separately. In Kubernetes, keep non-root startup and configure volume access through your storage provider and security context.
+
 ## File Permissions (PUID/PGID)
 
-When using local file storage in Docker, you can set `ATTIC_PUID` and `ATTIC_PGID` to match your host user's UID/GID. This ensures uploaded files have the correct ownership on the host filesystem.
+For local storage, the image runs as `1000:1000` by default. To use another identity, either start directly as that user with writable storage, or start the entrypoint as root so it can prepare the storage directory and drop privileges.
 
 ```shell
 # Find your user/group IDs
@@ -184,13 +221,20 @@ id -u  # PUID
 id -g  # PGID
 ```
 
-Add these to your Docker environment:
+For root-start ownership setup, merge these settings into the attic Compose service, replacing the example IDs with your host user's IDs:
 
 ```yaml
-environment:
-  - ATTIC_PUID=1000
-  - ATTIC_PGID=1000
+services:
+  attic:
+    user: "0:0"
+    environment:
+      - ATTIC_PUID=1000
+      - ATTIC_PGID=1000
 ```
+
+The Compose example above already includes `user: "0:0"`. For standalone Docker, add `--user 0:0` and both environment variables. The entrypoint changes ownership of the storage base directory, then runs attic as the requested UID/GID (or `1000:1000` when unset). It does not recursively change existing files. This mode requires permissions to change ownership and switch users; use non-root startup when dropping all capabilities.
+
+To start directly as non-root, use Compose `user: "2000:2000"`, Docker `--user 2000:2000`, or Kubernetes `runAsUser`/`runAsGroup`, and leave PUID/PGID unset. Storage must already be writable by that identity. If you do set PUID/PGID for local storage, set both to non-negative integers matching the runtime UID/GID; a missing partner or mismatched identity causes startup to fail.
 
 ## Health Checks
 

@@ -31,7 +31,9 @@ volumes:
 
 ### File Permissions
 
-When running in Docker, uploaded files are created by the container user. To match your host user's permissions, set the `ATTIC_PUID` and `ATTIC_PGID` variables:
+The image defaults to UID/GID `1000:1000`. When started as non-root, it honors the runtime identity and does not change storage ownership. Mounted storage must already be writable by that user or one of its groups.
+
+To have Docker prepare the storage base directory and then run attic as your host user's UID/GID, start the entrypoint as root and set both `ATTIC_PUID` and `ATTIC_PGID`:
 
 ```shell
 # Find your host user/group IDs
@@ -40,10 +42,19 @@ id -g  # e.g., 1000
 ```
 
 ```yaml
-environment:
-  - ATTIC_PUID=1000
-  - ATTIC_PGID=1000
+services:
+  attic:
+    user: "0:0"
+    environment:
+      - ATTIC_PUID=1000
+      - ATTIC_PGID=1000
 ```
+
+Merge these settings into your service and replace the IDs as needed. The entrypoint changes only the base directory's ownership before dropping privileges; it does not recursively repair existing files. Root-start setup requires permissions to change ownership and switch users.
+
+For non-root Docker startup, set `user: "2000:2000"` (or Docker `--user 2000:2000`) and leave PUID/PGID unset. If configured for local storage, both variables must match the runtime UID/GID or startup fails.
+
+In Kubernetes, use `runAsUser` and `runAsGroup` for the runtime identity and leave PUID/PGID unset. Pod-level `fsGroup` can provide volume access when supported by the volume type and CSI driver; otherwise, provision permissions separately. See the [Kubernetes installation example](/installation/#kubernetes).
 
 ### Bind Mounts
 
@@ -55,6 +66,8 @@ services:
     volumes:
       - /path/on/host/uploads:/data/uploads
 ```
+
+Create the host directory with permissions allowing the selected container identity to write to it. Mounting it hides the image's directory ownership. When upgrading to the non-root image, also check existing upload directories and files; non-root startup cannot fix their ownership.
 
 ## S3-Compatible Storage
 

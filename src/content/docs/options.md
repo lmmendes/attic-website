@@ -135,7 +135,9 @@ S3 secret key. When left empty, attic uses local file storage instead.
 
 Values: `Integer` | Default: None
 
-User ID for file ownership in Docker. Set this to match your host user's UID to ensure proper file permissions on mounted volumes.
+User ID for local-storage ownership and root-start privilege dropping. Set together with `ATTIC_PGID`, using non-negative integers. When the entrypoint starts as root, it prepares the storage base directory and switches to the requested identity. This requires Compose `user: "0:0"` or Docker `--user 0:0` and permissions to change ownership and switch users.
+
+The image defaults to non-root `1000:1000`. When already running non-root, these variables do not switch users: both must match the runtime UID/GID or startup fails. Leave them unset when selecting an identity through Docker's user setting or Kubernetes' security context. See [file permissions](/installation/#file-permissions-puidpgid).
 
 ```shell
 # Find your UID
@@ -146,7 +148,7 @@ id -u
 
 Values: `Integer` | Default: None
 
-Group ID for file ownership in Docker. Set this to match your host user's GID.
+Group ID for local-storage ownership and root-start privilege dropping. Set together with `ATTIC_PUID`; the same startup and identity-matching rules apply. These variables are ignored by the entrypoint when S3 storage is configured.
 
 ```shell
 # Find your GID
