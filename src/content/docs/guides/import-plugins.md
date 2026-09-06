@@ -16,7 +16,20 @@ Search and import books by title, author, or ISBN. Imported data includes:
 - Description and cover image
 - Language and categories
 
-No API key is required for Google Books.
+Google Books can work without a key, but unauthenticated requests may hit Google's shared quota.
+For a reliable self-hosted setup, create a key in [Google Cloud Console](https://console.cloud.google.com/apis/credentials):
+
+1. Create or select a Google Cloud project.
+2. Open **APIs & Services → Library**, find **Books API**, and enable it.
+3. Open **APIs & Services → Credentials**, choose **Create credentials → API key**.
+4. Copy the key and add it to your Attic environment:
+
+```shell
+ATTIC_GOOGLE_BOOKS_API_KEY=your-api-key
+```
+
+Because Attic calls Google from the server, configure server/IP restrictions rather than browser
+HTTP-referrer restrictions when restricting the key.
 
 ### TMDB (The Movie Database)
 
@@ -42,7 +55,17 @@ Search and import board games. Imported data includes:
 - Player count, playing time
 - Complexity rating and cover image
 
-No API key is required for BoardGameGeek.
+**Requires an application key.** Sign in to BoardGameGeek and create an application from the
+[BoardGameGeek applications page](https://boardgamegeek.com/applications). After the application is
+approved, copy its API key and set:
+
+```shell
+ATTIC_BGG_API_KEY=your-api-key
+```
+
+BoardGameGeek may require a short review period before the key becomes usable. Follow the
+[BoardGameGeek XML API guidance](https://boardgamegeek.com/using_the_xml_api) and its terms when
+publishing or sharing an integration.
 
 ## Using Plugins
 

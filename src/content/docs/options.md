@@ -242,8 +242,28 @@ Minimum password length for local authentication.
 
 ## Import Plugins
 
+Import plugin credentials are configured as environment variables. Add them to your `.env` file or
+pass them with Docker's `-e` option, then restart Attic.
+
+### `ATTIC_GOOGLE_BOOKS_API_KEY`
+
+Values: `String` | Default: None
+
+Optional Google Books API key. Google Books may apply a low shared quota to unauthenticated
+requests, so a key is recommended for reliable imports. Create one in [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
+after enabling the [Books API](https://console.cloud.google.com/apis/library/books.googleapis.com).
+See the [Import Plugins guide](/guides/import-plugins) for the complete setup steps.
+
 ### `ATTIC_TMDB_API_KEY`
 
 Values: `String` | Default: None
 
 API key for [The Movie Database (TMDB)](https://www.themoviedb.org/). Required to use the TMDB import plugin for movies and TV series. Register for a free API key at [themoviedb.org](https://www.themoviedb.org/settings/api).
+
+### `ATTIC_BGG_API_KEY`
+
+Values: `String` | Default: None
+
+BoardGameGeek application key. Required to use the BoardGameGeek import plugin. Request one from
+the [BoardGameGeek applications page](https://boardgamegeek.com/applications). See the [Import
+Plugins guide](/guides/import-plugins) for setup details and API terms.
