@@ -1,9 +1,9 @@
 ---
-title: attic
-description: Track everything. Lose nothing.
+title: Home inventory
+description: A self-hosted home inventory that helps you know what you own and where it lives.
 template: splash # Remove or comment out this line to display the site sidebar on this page.
 hero:
-  tagline: Track everything. Lose nothing
+  tagline: A self-hosted home inventory for everything you own.
   actions:
     - text: Get started
       link: /installation/
@@ -17,56 +17,56 @@ hero:
 import { CardGrid } from '@astrojs/starlight/components';
 import Card from '../../components/Card.astro';
 
-<a href="/linkding-screenshot.png" className="hero-image light">
-    <img src="/attic-screenshot-white.png"/>
+<a href="/attic-screenshot-white.png" className="hero-image light">
+    <img src="/attic-screenshot-white.png" alt="Attic home inventory dashboard in light mode"/>
 </a>
-<a href="/linkding-screenshot-dark.png" className="hero-image dark">
-    <img src="/attic-screenshot-dark.png"/>
+<a href="/attic-screenshot-dark.png" className="hero-image dark">
+    <img src="/attic-screenshot-dark.png" alt="Attic home inventory dashboard in dark mode"/>
 </a>
 
 ## Features
 
 <CardGrid>
-	<Card title="Asset Management" icon="asset">
-	    Create, organize, and track all your physical and digital assets in one centralized platform with full lifecycle management.
+	<Card title="Home Inventory" icon="asset">
+	    Catalog the things you own, from appliances and tools to books, games, and furniture, and keep their details in one place.
 	</Card>
 	<Card title="Smart Import" icon="import">
 	    Import assets instantly from Google Books, TMDB, and BoardGameGeek with automatic metadata, cover images, and custom attributes.
 	</Card>
-	<Card title="Hierarchical Organization" icon="hierarchical">
-	    Build nested categories and locations to mirror your real-world setup. Organize by room, shelf, or any structure that fits your needs.
+	<Card title="Rooms, Shelves, and Boxes" icon="hierarchical">
+	    Build nested locations that mirror your home, so you can record exactly where an item lives and find it again later.
 	</Card>
 	<Card title="Warranty Tracking" icon="warranty">
-	    Never miss a warranty expiration again. Track providers, dates, and get alerts when warranties are about to expire.
+	    Keep purchase details and warranty dates beside each item, with a clear view of warranties that need attention.
 	</Card>
 	<Card title="Custom Attributes" icon="attributes">
-	    Define unlimited custom fields per category. Track any data you need dates, numbers, text, booleans, or dropdown selections.
+	    Give each category the fields it needs, such as serial number, author, size, model, or purchase date.
 	</Card>
 	<Card title="File Attachments" icon="attachments">
-	    Attach invoices, manuals, photos, and documents to any asset. Keep all related files in one place with secure download links.
+	    Keep receipts, manuals, photos, and other documents with the item they belong to.
 	</Card>
 	<Card title="Full-Text Search" icon="search">
-	    Find anything instantly. Search across names, descriptions, tags, and custom attributes with powerful full-text search.
+	    Search your inventory and filter it by category, location, condition, or collection.
 	</Card>
 	<Card title="Collections" icon="collections">
-	    Group related assets together—book series, game expansions, or any items that belong as a set.
+	    Group related belongings—such as a book series, game collection, or moving box—without changing where they are stored.
 	</Card>
 	<Card title="Self-Hosted" icon="selfhosted">
-	    Own your data completely. Deploy on your infrastructure with Docker, no cloud dependency or subscription required.
+	    Keep control of your household data. Run Attic with Docker on your own server, with no required cloud service or subscription.
 	</Card>
 	<Card title="Single Sign-On (SSO)" icon="sso">
 	    Integrate with your existing identity provider using OIDC/OpenID Connect. Works seamlessly with PocketID, Keycloak and other providers.
 	</Card>
 	<Card title="REST API" icon="api">
-        Full-featured API with interactive Swagger documentation. Build custom integrations or automate your asset management.
+        Use the documented API to build integrations or automate updates to your home inventory.
 	</Card>
 	<Card title="Condition Tracking" icon="tracking">
-	    Monitor item quality. Track whether assets are new, used, damaged, or any custom condition you define.
+	    Record whether belongings are new, used, damaged, or in any custom condition you define.
 	</Card>
 	<Card title="Plugin System" icon="plugin">
 	    Add new import sources without writing code. Plugins automatically create categories, attributes, and fetch cover images.
 	</Card>
 	<Card title="Dark Mode" icon="darkmode">
-	    Beautiful, responsive interface with built-in dark theme support. Works great on desktop and mobile devices.
+	    Use a responsive interface designed for checking your inventory from a computer, tablet, or phone.
 	</Card>
 </CardGrid>

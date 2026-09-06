@@ -4,9 +4,10 @@ import starlight from "@astrojs/starlight";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://getattic.dev",
   integrations: [
     starlight({
-      title: "attic",
+      title: "Attic",
       head: [
         {
           tag: "script",

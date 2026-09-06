@@ -4,7 +4,7 @@ GitHub: https://github.com/lmmendes
 
 /* SITE */
 Name: attic
-Description: Self-hosted inventory management. Track everything. Lose nothing.
+Description: Self-hosted home inventory. Know what you own and where it lives.
 Language: English
 Technology: Go, PostgreSQL, Docker
 GitHub: https://github.com/lmmendes/attic

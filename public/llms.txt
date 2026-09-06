@@ -1,14 +1,14 @@
 # attic
 
-> Self-hosted inventory management. Track everything. Lose nothing.
+> Self-hosted home inventory. Know what you own and where it lives.
 
-attic is an open-source, self-hosted inventory management application. It lets individuals and teams catalog physical and digital assets — books, games, electronics, tools, and more — with full lifecycle tracking, warranty management, custom attributes, and file attachments. It runs as a single Docker container backed by PostgreSQL and exposes a full REST API.
+Attic is an open-source, self-hosted home inventory application for individuals and households. It catalogs belongings such as appliances, books, games, electronics, tools, and furniture; records where they are stored; and keeps useful details such as condition, receipts, manuals, purchase information, and warranties together. It runs as a single Docker container backed by PostgreSQL and exposes a REST API.
 
 ## Key Features
 
-- **Asset Management**: Create, organize, and track physical and digital assets with full lifecycle management.
+- **Home Inventory**: Catalog household belongings and keep their details in one place.
 - **Smart Import**: Import from Google Books, TMDB (movies/TV), and BoardGameGeek with automatic metadata and cover images.
-- **Hierarchical Organization**: Nested categories and locations to mirror real-world setups (room, shelf, box, etc.).
+- **Rooms, Shelves, and Boxes**: Nested locations that mirror where belongings are stored at home.
 - **Warranty Tracking**: Track warranty providers, dates, and expiration alerts.
 - **Custom Attributes**: Unlimited custom fields per category (dates, numbers, text, booleans, dropdowns).
 - **File Attachments**: Attach invoices, manuals, photos, and documents to any asset.
