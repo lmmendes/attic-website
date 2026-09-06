@@ -7,7 +7,7 @@ Attic is an open-source, self-hosted home inventory application for individuals 
 ## Key Features
 
 - **Home Inventory**: Catalog household belongings and keep their details in one place.
-- **Smart Import**: Import from Google Books, TMDB (movies/TV), and BoardGameGeek with automatic metadata and cover images.
+- **Smart Import**: Import from Google Books, TMDB (movies/TV), BoardGameGeek (board games), and IGDB (video games) with automatic metadata, cover images, and custom attributes.
 - **Rooms, Shelves, and Boxes**: Nested locations that mirror where belongings are stored at home.
 - **Warranty Tracking**: Track warranty providers, dates, and expiration alerts.
 - **Custom Attributes**: Unlimited custom fields per category (dates, numbers, text, booleans, dropdowns).

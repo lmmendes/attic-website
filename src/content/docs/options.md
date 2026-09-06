@@ -267,3 +267,19 @@ Values: `String` | Default: None
 BoardGameGeek application key. Required to use the BoardGameGeek import plugin. Request one from
 the [BoardGameGeek applications page](https://boardgamegeek.com/applications). See the [Import
 Plugins guide](/guides/import-plugins) for setup details and API terms.
+
+### `ATTIC_IGDB_CLIENT_ID`
+
+Values: `String` | Default: None
+
+Twitch application Client ID required by the IGDB video game import plugin. Create an application
+in the [Twitch Developer Console](https://dev.twitch.tv/console/apps). This value must be provided
+together with `ATTIC_IGDB_CLIENT_SECRET`.
+
+### `ATTIC_IGDB_CLIENT_SECRET`
+
+Values: `String` | Default: None
+
+Twitch application Client Secret required by the IGDB video game import plugin. Keep this value
+private and provide it together with `ATTIC_IGDB_CLIENT_ID`. See the [Import Plugins guide](/guides/import-plugins)
+for the complete setup steps.

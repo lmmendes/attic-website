@@ -1,6 +1,6 @@
 ---
 title: "Import Plugins"
-description: "Import assets from external sources like Google Books, TMDB, and BoardGameGeek"
+description: "Import assets from external sources like Google Books, TMDB, BoardGameGeek, and IGDB"
 ---
 
 attic includes a plugin system that lets you import asset metadata from external sources. Plugins automatically create categories, set up custom attributes, and fetch cover images.
@@ -67,6 +67,32 @@ BoardGameGeek may require a short review period before the key becomes usable. F
 [BoardGameGeek XML API guidance](https://boardgamegeek.com/using_the_xml_api) and its terms when
 publishing or sharing an integration.
 
+### IGDB (Video Games)
+
+Search and import video games from the Internet Game Database (IGDB). Imported data includes:
+
+- Title, description, and cover image
+- Platform-specific release dates and release year
+- Genres, themes, game modes, and player perspectives
+- Developers, publishers, game type, and release status
+- IGDB rating, age rating, and source URL
+
+**Requires a Twitch application.** IGDB uses Twitch's client-credentials flow, so both a Client ID
+and Client Secret are required:
+
+1. Open the [Twitch Developer Console](https://dev.twitch.tv/console/apps).
+2. Register an application and copy its **Client ID** and **Client Secret**.
+3. Add both values to the Attic environment and restart the server:
+
+```shell
+ATTIC_IGDB_CLIENT_ID=your-twitch-client-id
+ATTIC_IGDB_CLIENT_SECRET=your-twitch-client-secret
+```
+
+Keep the Client Secret private. Attic exchanges it for a short-lived IGDB access token and stores
+the token only in memory. Search results include platform-specific releases so you can select the
+edition that matches the game you own.
+
 ## Using Plugins
 
 ### Importing Assets
@@ -81,14 +107,16 @@ publishing or sharing an integration.
 
 ### How Plugins Work
 
-When you import an asset through a plugin:
+When Attic starts, it creates the category and custom fields for every enabled plugin. This lets you
+review and customize the category before importing anything. When you import an asset:
 
-- A **category** is created automatically if it doesn't exist (e.g., "Books", "Movies", "Board Games")
-- **Custom attributes** are created for the category based on the plugin's data model (e.g., ISBN for books, runtime for movies)
+- The plugin reuses its category (e.g., "Books", "Movies", "Board Games", or "Video Games")
+- The asset receives the plugin's custom metadata (e.g., ISBN for books or runtime for movies)
 - The asset is created with all metadata populated
 - **Cover images** are downloaded and attached automatically
 
-Subsequent imports using the same plugin reuse the existing category and attributes.
+Category initialization is safe to run again whenever Attic restarts. Existing plugin categories are
+reused and user changes are preserved.
 
 ## Plugin Endpoints
 
