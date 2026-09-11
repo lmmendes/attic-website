@@ -179,4 +179,13 @@ For local development only, you can disable authentication entirely:
 ATTIC_AUTH_DISABLED=true
 ```
 
-**Never use this in production.** All endpoints become accessible without login.
+Disabled authentication runs every request as the existing user with email `admin`. To select a different existing user, set:
+
+```shell
+ATTIC_AUTH_DISABLED=true
+ATTIC_AUTH_DISABLED_USER_EMAIL=developer@example.com
+```
+
+The selected user's role and permissions are preserved. attic refuses to start if the selected user does not exist.
+
+**Never use this in production.** Requests do not require login.

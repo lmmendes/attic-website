@@ -204,7 +204,13 @@ The client secret for confidential OIDC clients. Required when your OIDC provide
 
 Values: `true`, `false` | Default: `false`
 
-Disables all authentication. **Only use this for local development.** All endpoints become accessible without login.
+Disables login and uses an existing database user for every request. **Only use this for local development.** The selected user's existing role and permissions are preserved. By default, attic uses the user whose email is `admin`. Startup fails if the selected user does not exist.
+
+### `ATTIC_AUTH_DISABLED_USER_EMAIL`
+
+Values: `String` | Default: `admin`
+
+Selects the existing database user used when `ATTIC_AUTH_DISABLED=true`. Email matching is case-insensitive. Custom users are not created automatically, and attic fails to start if the email cannot be found. This option is ignored when authentication is enabled.
 
 ### `ATTIC_SESSION_SECRET`
 
