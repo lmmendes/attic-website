@@ -17,11 +17,13 @@ hero:
 import { CardGrid } from '@astrojs/starlight/components';
 import Card from '../../components/Card.astro';
 
-<a href="/attic-screenshot-white.png" className="hero-image light">
-    <img src="/attic-screenshot-white.png" alt="Attic home inventory dashboard in light mode"/>
+export const cacheBust = Date.now().toString(36);
+
+<a href={`/attic-screenshot-white.png?v=${cacheBust}`} className="hero-image light">
+    <img src={`/attic-screenshot-white.png?v=${cacheBust}`} alt="Attic home inventory dashboard in light mode"/>
 </a>
-<a href="/attic-screenshot-dark.png" className="hero-image dark">
-    <img src="/attic-screenshot-dark.png" alt="Attic home inventory dashboard in dark mode"/>
+<a href={`/attic-screenshot-dark.png?v=${cacheBust}`} className="hero-image dark">
+    <img src={`/attic-screenshot-dark.png?v=${cacheBust}`} alt="Attic home inventory dashboard in dark mode"/>
 </a>
 
 ## Features
