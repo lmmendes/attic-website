@@ -33,34 +33,49 @@ export const cacheBust = Date.now().toString(36);
 	    Catalog the things you own, from appliances and tools to books, games, and furniture, and keep their details in one place.
 	</Card>
 	<Card title="Smart Import" icon="import">
-	    Import assets instantly from Google Books, TMDB, BoardGameGeek, and IGDB for video games—with automatic metadata, cover images, and custom attributes.
+	    Import assets instantly from Google Books, TMDB, BoardGameGeek, IGDB for video games, and Rebrickable for LEGO sets and minifigures—with automatic metadata, cover images, and custom attributes.
 	</Card>
 	<Card title="Rooms, Shelves, and Boxes" icon="hierarchical">
-	    Build nested locations that mirror your home, so you can record exactly where an item lives and find it again later.
+	    Build nested locations that mirror your home, so you can record exactly where an item lives and find it again later. Add location photo galleries and choose cover photos to recognize your storage spaces.
 	</Card>
 	<Card title="Warranty Tracking" icon="warranty">
 	    Keep purchase details and warranty dates beside each item, with a clear view of warranties that need attention.
 	</Card>
 	<Card title="Custom Attributes" icon="attributes">
-	    Give each category the fields it needs, from text, numbers, and dates to configurable single- and multi-select options.
+	    Give each category the fields it needs, from text, numbers, dates, and web links to configurable single- and multi-select options.
 	</Card>
 	<Card title="Configurable Workspace" icon="settings">
-	    Keep Attic focused on how you organize. Administrators can enable or disable locations, collections, categories and attributes, conditions, warranties, and import plugins.
+	    Keep Attic focused on how you organize. Administrators can enable or disable locations, collections, tags, categories and attributes, conditions, warranties, and import plugins, and set a shared currency for purchase prices.
 	</Card>
 	<Card title="File Attachments" icon="attachments">
 	    Keep receipts, manuals, photos, and other documents with the item they belong to.
 	</Card>
 	<Card title="Advanced Search" icon="search">
-	    Combine typed filters with nested match-all or match-any rules, then save searches for later and pin your favorites as shortcuts.
+	    Combine typed filters with nested match-all or match-any rules, then save searches for later and pin your favorites as shortcuts. [Explore search and saved filters](/guides/search/).
 	</Card>
 	<Card title="Collections" icon="collections">
 	    Group related belongings—such as a book series, game collection, or moving box—without changing where they are stored.
+	</Card>
+	<Card title="Tags" icon="attributes">
+	    Label assets across categories and locations, then filter for any or all selected tags.
+	</Card>
+	<Card title="Asset Contents" icon="hierarchical">
+	    Track items inside other assets, such as tools in a toolbox. Browse nested contents and move them together with their container.
+	</Card>
+	<Card title="Asset History" icon="tracking">
+	    Record repairs, maintenance, and other events with a date, description, and icon on each asset’s timeline.
 	</Card>
 	<Card title="Self-Hosted" icon="selfhosted">
 	    Keep control of your household data. Run Attic with Docker on your own server, with no required cloud service or subscription.
 	</Card>
 	<Card title="Single Sign-On (SSO)" icon="sso">
 	    Integrate with your existing identity provider using OIDC/OpenID Connect. Works seamlessly with PocketID, Keycloak and other providers.
+	</Card>
+	<Card title="Scoped API Keys" icon="sso">
+	    Connect scripts and harnesses with personal API keys. Choose read or read-write access per resource, set optional expiry, and revoke keys from your profile. [Set up API keys](/guides/api-keys/).
+	</Card>
+	<Card title="MCP for Agents" icon="plugin">
+	    Give agents and assistants access to your inventory through the built-in MCP server, with tools controlled by your key’s permissions and workspace settings. [Connect an agent](/guides/mcp/).
 	</Card>
 	<Card title="REST API" icon="api">
         Use the documented API to build integrations or automate updates to your home inventory.
@@ -69,12 +84,20 @@ export const cacheBust = Date.now().toString(36);
 	    Record whether belongings are new, used, damaged, or in any custom condition you define.
 	</Card>
 	<Card title="Plugin System" icon="plugin">
-	    Import books with Google Books, movies and TV series with TMDB, board games with BoardGameGeek, and video games with IGDB—complete with metadata and cover images.
+	    Import books with Google Books, movies and TV series with TMDB, board games with BoardGameGeek, video games with IGDB, and LEGO sets and minifigures with Rebrickable—complete with metadata and cover images.
 	</Card>
 	<Card title="Dark Mode" icon="darkmode">
 	    Use a responsive interface designed for checking your inventory from a computer, tablet, or phone.
 	</Card>
 </CardGrid>
+
+## Use Attic day to day
+
+- [Organize your inventory](/guides/inventory/): categories, collections, tags, asset contents, photo galleries, and history.
+- [Find and save searches](/guides/search/): attribute searches, nested filters, and private shortcuts.
+- [Set up import sources](/guides/import-plugins/): credentials and workflows for every included catalog.
+- [Connect scripts and agents](/guides/mcp/): scoped API keys, MCP setup, and harness configuration.
+- [Configure your workspace](/guides/workspace-settings/): feature switches and a shared currency for prices.
 
 ## Feedback and ideas
 

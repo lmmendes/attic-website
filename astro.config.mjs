@@ -45,10 +45,15 @@ export default defineConfig({
         {
           label: "Guides",
           items: [
+            { label: "Organize Your Inventory", slug: "guides/inventory" },
+            { label: "Search & Saved Filters", slug: "guides/search" },
+            { label: "Workspace Settings", slug: "guides/workspace-settings" },
             { label: "Authentication", slug: "guides/authentication" },
             { label: "Storage", slug: "guides/storage" },
             { label: "Reverse Proxy", slug: "guides/reverse-proxy" },
             { label: "Import Plugins", slug: "guides/import-plugins" },
+            { label: "API Keys", slug: "guides/api-keys" },
+            { label: "MCP & Agent Integration", slug: "guides/mcp" },
           ],
         },
         {

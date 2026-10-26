@@ -3,7 +3,7 @@ title: "Storage"
 description: "Configure local or S3-compatible storage for file attachments"
 ---
 
-attic supports two storage backends for file attachments: local filesystem storage and S3-compatible object storage. If no S3 credentials are configured, attic automatically uses local storage.
+Attic uses the configured storage backend for asset attachments, imported cover images, and location photo galleries. It supports two backends: local filesystem storage and S3-compatible object storage. If no S3 credentials are configured, attic automatically uses local storage.
 
 ## Local Storage (Default)
 
@@ -187,3 +187,10 @@ There is no built-in migration tool. To migrate from local storage to S3 (or vic
 1. Upload existing files from the local storage directory to your S3 bucket, preserving the directory structure
 2. Update the environment variables to point to the new storage backend
 3. Restart attic
+
+
+## Location Photo Storage
+
+Location galleries share `ATTIC_LOCAL_STORAGE_PATH` or the configured S3 bucket. Photos use `locations/<unique-id>/location-photo.<extension>` beneath that storage root. Include these files alongside asset attachments when backing up uploads or copying between storage backends.
+
+Deleting a location also cleans up its photos. Existing location photos are migrated into the gallery without moving their files. Rolling back migration 33 is refused while any location has multiple photos, to prevent data loss. See [location photo galleries](/guides/inventory/#locations-and-photo-galleries) for file limits and cover behavior.

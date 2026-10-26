@@ -163,7 +163,7 @@ attic supports three authentication modes: local password authentication, OIDC/S
 
 Values: `true`, `false` | Default: `false`
 
-Enables OpenID Connect (OIDC) authentication for single sign-on. When enabled, users authenticate through your OIDC provider (e.g., Keycloak, Authentik, PocketID). See the [authentication guide](/guides/authentication) for setup instructions.
+Enables OpenID Connect (OIDC) authentication for single sign-on. Attic also enables OIDC automatically when both `ATTIC_OIDC_ISSUER_URL` and `ATTIC_OIDC_CLIENT_ID` are configured. When enabled, users authenticate through your OIDC provider (e.g., Keycloak, Authentik, PocketID). See the [authentication guide](/guides/authentication) for setup instructions.
 
 ### `ATTIC_OIDC_AUTO_REDIRECT`
 
@@ -173,7 +173,7 @@ Automatically sends unauthenticated users to the configured OIDC provider instea
 
 ### `ATTIC_OIDC_ISSUER_URL`
 
-Values: `String` | Default: `http://localhost:8180/realms/attic`
+Values: `String` | Default: None
 
 The OIDC issuer URL. This is the base URL of your OIDC provider's realm or tenant.
 
@@ -190,7 +190,7 @@ ATTIC_OIDC_ISSUER_URL=https://pocketid.yourdomain.com
 
 ### `ATTIC_OIDC_CLIENT_ID`
 
-Values: `String` | Default: `attic-web`
+Values: `String` | Default: None
 
 The client ID registered with your OIDC provider.
 
@@ -289,3 +289,9 @@ Values: `String` | Default: None
 Twitch application Client Secret required by the IGDB video game import plugin. Keep this value
 private and provide it together with `ATTIC_IGDB_CLIENT_ID`. See the [Import Plugins guide](/guides/import-plugins)
 for the complete setup steps.
+
+### `ATTIC_REBRICKABLE_API_KEY`
+
+Values: `String` | Default: None
+
+Rebrickable API key required for both **Rebrickable LEGO Sets** and **Rebrickable Minifigures**. Create a key at [Rebrickable](https://rebrickable.com/api/), pass it to the server environment, and restart Attic. Both sources use the same key and share a one-request-per-second catalog limit. See [Rebrickable setup and import behavior](/guides/import-plugins/#rebrickable-lego-sets-and-minifigures).

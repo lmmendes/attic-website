@@ -5,6 +5,10 @@ description: "Set up authentication for attic using local passwords or OIDC/SSO"
 
 attic supports two authentication methods: local password authentication and OpenID Connect (OIDC) for single sign-on. You can also disable authentication entirely for development.
 
+## API keys for integrations
+
+Scripts, agents, and harnesses can authenticate with [personal API keys](/guides/api-keys/) using an Authorization bearer header. Create keys in **Profile → API keys** with resource permissions and optional expiration. The [MCP server](/guides/mcp/) uses the same keys and requires an administrator to enable it separately.
+
 ## Local Authentication (Default)
 
 Local authentication is enabled by default. Users are managed directly within attic and authenticate with an email and password.
@@ -16,7 +20,7 @@ ATTIC_ADMIN_EMAIL=admin@example.com
 ATTIC_ADMIN_PASSWORD=your-secure-password
 ```
 
-Admin users can create additional users through the Settings page in the web interface.
+Admin users can create additional users from **Users** in the web interface. Workspace feature switches and currency are managed separately in [Settings](/guides/workspace-settings/).
 
 ### Password Reset
 
